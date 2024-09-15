@@ -8,7 +8,11 @@ let client;
 async function connectToDatabase() {
     console.log(uri);
     if (!client) {
-        client = new MongoClient(uri);
+        client = new MongoClient(uri, {
+            tls: true,
+            tlsAllowInvalidCertificates: false,
+            tlsAllowInvalidHostnames: false
+        });
         await client.connect();
         console.log('Connected to MongoDB');
     }
